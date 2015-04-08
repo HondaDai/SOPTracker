@@ -61,8 +61,11 @@ class AccessPoint
 
 end
 
-
-# set :bind, '140.112.27.43'
+require 'socket'
+public_ip = '140.112.27.43'
+if Socket.ip_address_list.map{|x| x.ip_address}.include?(public_ip)
+  set :bind, public_ip
+end
 
 get '/register' do
   db = JSONDatabase.new
